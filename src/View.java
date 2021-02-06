@@ -40,6 +40,8 @@ public class View {
         //Adds listener to avoid overstepping view bounds
         addEventListener();
 
+        //Add Menu Bar and Make Visible
+        addMenu();
         viewPort.setVisible(true);
     }
 
@@ -74,5 +76,27 @@ public class View {
     //Returns the max width of the Frame
     public int getMaxWidth() {
         return viewPort.getMaximumSize().width;
+    }
+
+    public void configureViewPort(JComponent[] components) {
+        viewPort.removeAll();
+        for(int x = 0; x < components.length; x++) {
+            viewPort.add(components[x]);
+        }
+
+
+    }
+
+    private void addMenu() {
+        JMenuBar mb = new JMenuBar();
+        JMenu m1 = new JMenu("FILE");
+        JMenu m2 = new JMenu("Help");
+        mb.add(m1);
+        mb.add(m2);
+        JMenuItem m11 = new JMenuItem("Open");
+        JMenuItem m22 = new JMenuItem("Save as");
+        m1.add(m11);
+        m1.add(m22);
+        viewPort.getContentPane().add(BorderLayout.NORTH, mb);
     }
 }

@@ -3,7 +3,31 @@ Code by Cooper Eisman
 Created: 02/05/2021
 Last Modified: 02/05/2021
 */
+
+
+import javax.swing.*;
+
 public class FrontendController {
+    View view;
+
+    public FrontendController() {
+        view = new View();
+    }
+
+    private void setMainMenu() {
+        JMenuBar mb = new JMenuBar();
+        JMenu m1 = new JMenu("FILE");
+        JMenu m2 = new JMenu("Help");
+        mb.add(m1);
+        mb.add(m2);
+        JMenuItem m11 = new JMenuItem("Open");
+        JMenuItem m22 = new JMenuItem("Save as");
+        m1.add(m11);
+        m1.add(m22);
+    }
+
+
+
     /*
         Runtime runtime = Runtime.getRuntime();
 

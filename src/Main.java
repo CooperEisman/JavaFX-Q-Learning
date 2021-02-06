@@ -11,6 +11,6 @@ class Main {
     //Starts Program
     public static void main(String[] args) {
         main = new Main();
-        View v = new View();
+        FrontendController screen = new FrontendController();
     }
 }
