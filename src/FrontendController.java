@@ -152,11 +152,42 @@ public class FrontendController {
         build.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                QLearning q = new QLearning(maze.getWidth(), maze.getHeight());
+                addQLearn();
             }
         });
         east.add(build);
+    }
+    private void addQLearn() {
+        QLearning q = new QLearning(maze.getWidth(), maze.getHeight());
+        int currPos = maze.startPos;
+        int nextPos;
+        //how to find xand y from pos [position/height][position%height]
 
+        int[] poli = q.policies();
+        //switch them up()
 
+        int x = 0;
+        do {
+            nextPos = poli[currPos];
+
+            //makecolors
+            mazeView[currPos].setBackground(new Color(11111111));
+            mazeView[currPos].setFont(new Font("Arial", Font.PLAIN, 40));
+            if (nextPos == currPos + 1) { // go Right
+                mazeView[currPos].setText("→");
+            } else if (nextPos == currPos - 1) { // go Left
+                mazeView[currPos].setText("←");
+            } else if (nextPos == currPos - width) { // go up
+                mazeView[currPos].setText("↑");
+            } else { // else, down
+                mazeView[currPos].setText("↓");
+            }
+
+            currPos = nextPos;
+            System.out.println(currPos + "/" + maze.endPos);
+            x++;
+        } while (maze.endPos != currPos && x != 10);
+
+        loadScreen();
     }
 }

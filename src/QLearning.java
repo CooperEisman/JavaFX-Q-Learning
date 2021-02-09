@@ -11,8 +11,8 @@ public class QLearning {
     private final double alpha = 0.1; // Learning rate
     private final double gamma = 0.9; // Eagerness - 0 looks in the near future, 1 looks in the distant future
 
-    private int mazeWidth;
-    private int mazeHeight;
+    private int mazeWidth = 25;
+    private int mazeHeight = 25;
     private final int statesCount = mazeHeight * mazeWidth;
 
     private final int reward = 100;
@@ -21,7 +21,6 @@ public class QLearning {
     private char[][] maze;  // Maze read from file
     private int[][] R;       // Reward lookup
     private double[][] Q;    // Q learning
-
 
     public QLearning(int mazeWidth, int mazeHeight) {
         this.mazeWidth = mazeWidth;
@@ -38,7 +37,7 @@ public class QLearning {
 
         R = new int[statesCount][statesCount];
         Q = new double[statesCount][statesCount];
-        maze = new char[mazeHeight][mazeWidth];
+        maze = new char[mazeWidth][mazeHeight];
 
 
         try (FileInputStream fis = new FileInputStream(file)) {
@@ -255,5 +254,15 @@ public class QLearning {
             }
             System.out.println();
         }
+    }
+
+    int[] policies() {
+        int[] returnable = new int[mazeHeight*mazeWidth];
+        for (int x = 0; x < mazeHeight; x++) {
+            for(int y = 0; y < mazeWidth; y++) {
+                returnable[x*mazeHeight+y] = getPolicyFromState(x + y*mazeHeight);
+            }
+        }
+        return returnable;
     }
 }
