@@ -25,12 +25,14 @@ public class FrontendController {
     private int height;
 
     private Maze maze;
+    private JButton[] mazeView;
 
     public FrontendController(Maze maze) {
         //Initiate Input from maze
         this.maze = maze;
         this.width = maze.getWidth();
         this.height = maze.getHeight();
+        this.mazeView = new JButton[width*height];
 
 
 
@@ -93,22 +95,23 @@ public class FrontendController {
 
         for(int x = 0; x < vars.length; x++) {
             for(int y = 0; y < vars[x].length; y++) {
-                Button b;
                 if (vars[x][y] == -1) {
-                    b = new Button("Barrier");
-                    b.setBackground(new Color(0));
-                    b.setForeground(new Color(99999999));
+                    mazeView[y*width+x] = new JButton();
+                    mazeView[y*width+x].setBackground(new Color(0));
+                    mazeView[y*width+x].setForeground(new Color(99999999));
                 } else if (vars[x][y] == 1) {
-                    b = new Button("Start");
-                    b.setBackground(new Color(101010));
+                    mazeView[y*width+x] = new JButton("Start");
+                    mazeView[y*width+x].setBackground(new Color(101010));
                 } else if (vars[x][y] == 10) {
-                    b = new Button("Finish");
-                    b.setBackground(new Color(100100100));
+                    mazeView[y*width+x] = new JButton("Finish");
+                    mazeView[y*width+x].setBackground(new Color(100100100));
                 } else {
-                    b = new Button("Box");
+                    mazeView[y*width+x] = new JButton();
                 }
-                center.add(b);
             }
+        }
+        for(int x = 0; x < mazeView.length; x++) {
+            center.add(mazeView[x]);
         }
         loadScreen();
     }
