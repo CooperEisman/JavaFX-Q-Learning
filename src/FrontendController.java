@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 public class FrontendController {
     //Instance
@@ -27,7 +28,14 @@ public class FrontendController {
     private Maze maze;
     private JButton[] mazeView;
 
+    private JSlider widthSlider;
+    private JSlider heightSlider;
+
     public FrontendController(Maze maze) {
+        instantiateNew(maze);
+    }
+    //private callable setup
+    private void instantiateNew(Maze maze) {
         //Initiate Input from maze
         this.maze = maze;
         this.width = maze.getWidth();
@@ -108,6 +116,7 @@ public class FrontendController {
                 } else {
                     mazeView[y*width+x] = new JButton();
                 }
+                mazeView[y*width+x].setEnabled(false);
             }
         }
         for(int x = 0; x < mazeView.length; x++) {
@@ -117,7 +126,12 @@ public class FrontendController {
     }
 
     private void loadEast() {
+        //new Button for New Load
         JButton reset = new JButton("Re-generate");
+        GridLayout eastLayout = new GridLayout();
+        eastLayout.setColumns(2);
+        eastLayout.setRows(3);
+        east.setLayout(eastLayout);
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,6 +139,23 @@ public class FrontendController {
             }
         });
         east.add(reset);
+
+        widthSlider = new JSlider();
+        widthSlider.setMinimum(2);
+        widthSlider.setMaximum(200);
+        widthSlider.setValue(width);
+
+        widthSlider.setLabelTable(widthSlider.createStandardLabels(25,25));
+
+        widthSlider.setPaintLabels(true);
+        east.add(widthSlider);
+    }
+
+    private void newSize(int height, int width) {
+        if(this.height != height || this.width != width) {
+            this.maze = new Maze(height, width, new File("./Resources/Maze.txt"));
+            instantiateNew(this.maze);
+        }
     }
 
 
