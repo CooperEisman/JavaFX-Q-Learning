@@ -21,5 +21,6 @@ class Main {
         Maze m = new Maze(5,5,new File("./Resources/Maze.txt"));
         m.generateNewMaze();
         fc.updateCenter(m.getArr());
+        m.writeToFile();
     }
 }

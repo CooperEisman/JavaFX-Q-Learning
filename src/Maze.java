@@ -1,7 +1,7 @@
 //Cooper Eisman -- Maze Class
 
 import java.io.*;
-
+import java.util.Scanner;
 
 
 public class Maze {
@@ -61,11 +61,33 @@ public class Maze {
         String s = "";
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                s += maze[x][y] + " ";
+                int curr = maze[x][y];
+                if(curr == 0) {
+                    s += "O";
+                } else if (curr == -1) {
+                    s += "X";
+                } else if (curr == 10) {
+                    s += "F";
+                } else {
+                    s += "*";
+                }
             }
             s+= "\n";
         }
         return s;
+    }
+
+    public void writeToFile() {
+        clearTheFile();
+        FileWriter toFile;
+        try {
+            toFile = new FileWriter(file);
+            toFile.write(toString());
+            toFile.close();
+        } catch(IOException e) {
+            System.out.println("Error: File not Read: " + e.toString());
+        }
+
     }
 
 

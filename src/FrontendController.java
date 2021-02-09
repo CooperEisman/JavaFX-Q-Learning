@@ -67,17 +67,20 @@ public class FrontendController {
     //Load the Screen
     public void updateCenter(int[][] vars) {
         //Fix layout
-        center.removeAll();
+
+        //center.removeAll();
         center.setMaximumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
         GridLayout centerLayout = new GridLayout();
+
         centerLayout.setColumns(width);
         centerLayout.setRows(height);
         centerLayout.setHgap(1);
         centerLayout.setVgap(1);
         center.setLayout(centerLayout);
 
+
         for(int x = 0; x < vars.length; x++) {
-            for(int y = 0; x < vars[x].length; y++) {
+            for(int y = 0; y < vars[x].length; y++) {
                 Button b;
                 if (vars[x][y] == -1) {
                     b = new Button("Barrier");
