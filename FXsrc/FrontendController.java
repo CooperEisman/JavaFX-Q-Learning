@@ -6,59 +6,36 @@ Last Modified: 02/05/2021
 
 
 import javax.swing.*;
+import java.awt.*;
 
 public class FrontendController {
-    View view;
+    //Instance
+    private View view;
+    private JPanel currScreen;
 
     public FrontendController() {
         view = new View();
-    }
+        currScreen = new JPanel();
 
-    private void setMainMenu() {
-        JMenuBar mb = new JMenuBar();
-        JMenu m1 = new JMenu("FILE");
-        JMenu m2 = new JMenu("Help");
-        mb.add(m1);
-        mb.add(m2);
-        JMenuItem m11 = new JMenuItem("Open");
-        JMenuItem m22 = new JMenuItem("Save as");
-        m1.add(m11);
-        m1.add(m22);
-    }
+        JButton[] buttons = new JButton[100];
+        GridLayout g = new GridLayout(9,9);
+        g.setHgap(1);
+        g.setVgap(1);
+        g.minimumLayoutSize(p);
+        p.setLayout(g);
 
-
-
-    /*
-        Runtime runtime = Runtime.getRuntime();
-
-        JPanel mainMenu = new JPanel();
-        JButton send = new JButton("Send");
-
-        mainMenu.add(send);
-        mainMenu.setSize(200,200);
-
-        viewPort = new JFrame();
-        viewPort.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        viewPort.setSize(400,400);
-
-        viewPort.setVisible(true);
-
-
-        JPanel p2 = new JPanel();
-        JButton re = new JButton("Recieve");
-        p2.add(re);
-        viewPort.add(mainMenu,0);
-        viewPort.add(p2,1);
-        viewPort.setVisible(true);
-
-
-        This is for messing with runtimes
-        try {
-            synchronized(Main.main) {
-                Main.main.wait(1000);
-            }
-        } catch (InterruptedException e) {
-            System.exit(0);
+        for(int x = 0; x < buttons.length; x++) {
+            buttons[x] = new JButton("B: " + x);
+            p.add(buttons[x],x);
         }
-        */
+
+
+        v.configureViewPort(p);
+    }
+
+    public void loadScreen() {
+
+    }
+
+
 }

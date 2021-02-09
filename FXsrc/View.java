@@ -78,13 +78,11 @@ public class View {
         return viewPort.getMaximumSize().width;
     }
 
-    public void configureViewPort(JComponent[] components) {
-        viewPort.removeAll();
-        for(int x = 0; x < components.length; x++) {
-            viewPort.add(components[x]);
-        }
+    public void configureViewPort(JPanel view) {
 
+        viewPort.add(view);
 
+        viewPort.setVisible(true);
     }
 
     private void addMenu() {

@@ -3,6 +3,7 @@
 import java.io.*;
 
 
+
 public class Maze {
     //Instance
     private int width = 3;
