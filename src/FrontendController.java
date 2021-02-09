@@ -6,6 +6,8 @@ Last Modified: 02/05/2021
 
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,10 +34,6 @@ public class FrontendController {
     private JSlider heightSlider;
 
     public FrontendController(Maze maze) {
-        instantiateNew(maze);
-    }
-    //private callable setup
-    private void instantiateNew(Maze maze) {
         //Initiate Input from maze
         this.maze = maze;
         this.width = maze.getWidth();
@@ -57,6 +55,15 @@ public class FrontendController {
         loadScreen();
     }
 
+    //private callable setup
+    private void instantiateNew(Maze maze) {
+        this.maze = maze;
+        this.width = maze.getWidth();
+        this.height = maze.getHeight();
+        this.mazeView = new JButton[width*height];
+    }
+
+    //Validate and Update Viewport
     public void loadScreen() {
         currScreen.validate();
         view.configureViewPort(currScreen);
@@ -84,6 +91,7 @@ public class FrontendController {
 
     //Load the Screen
     public void updateCenter() {
+        newSize();
         //Fix layout
         maze.generateNewMaze();
         maze.writeToFile();
@@ -140,18 +148,52 @@ public class FrontendController {
         });
         east.add(reset);
 
+        JLabel widthLabel = new JLabel("Width: 4");
+        east.add(widthLabel);
+
         widthSlider = new JSlider();
         widthSlider.setMinimum(2);
         widthSlider.setMaximum(200);
+        widthSlider.setValue(4);
         widthSlider.setValue(width);
 
         widthSlider.setLabelTable(widthSlider.createStandardLabels(25,25));
 
+        widthSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                widthLabel.setText("Width: " + widthSlider.getValue());
+            }
+        });
+
         widthSlider.setPaintLabels(true);
         east.add(widthSlider);
+
+        JLabel heightLabel = new JLabel("Width: 4");
+        east.add(heightLabel);
+
+        heightSlider = new JSlider();
+        heightSlider.setMinimum(2);
+        heightSlider.setMaximum(200);
+        heightSlider.setValue(4);
+        heightSlider.setValue(width);
+
+        heightSlider.setLabelTable(heightSlider.createStandardLabels(25,25));
+
+        heightSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                heightLabel.setText("Width: " + heightSlider.getValue());
+            }
+        });
+
+        heightSlider.setPaintLabels(true);
+        east.add(heightSlider);
     }
 
-    private void newSize(int height, int width) {
+    private void newSize() {
+        height = heightSlider.getValue();
+        width = widthSlider.getValue();
         if(this.height != height || this.width != width) {
             this.maze = new Maze(height, width, new File("./Resources/Maze.txt"));
             instantiateNew(this.maze);
