@@ -11,6 +11,9 @@ public class Maze {
     private File file;
     int[][] maze;
 
+    int startPos;
+    int endPos;
+
     //Instantiate with Default Height
     public Maze(File file) {
         this.file = file;
@@ -23,6 +26,10 @@ public class Maze {
         this.height = height;
         this.file = file;
         maze = new int[width][height];
+
+        //So that we don't die
+        this.endPos = 0;
+        this.startPos = 0;
     }
 
     //Writes/Wewrites the file; Returns false if operation fails
@@ -49,12 +56,14 @@ public class Maze {
             position = (int)((width*height)*Math.random());
         } while ((maze[position/height][position%height] == -1));
         maze[position/height][position%height] = 10;
+        endPos = position;
 
         //Set Start Position
         do {
             position = (int)((width*height)*Math.random());
         } while ((maze[position/height][position%height] == -1) || (maze[position/height][position%height] == 10));
         maze[position/height][position%height] = 1;
+        startPos = position;
     }
 
     public String toString() {
