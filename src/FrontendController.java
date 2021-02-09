@@ -7,6 +7,9 @@ Last Modified: 02/05/2021
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 public class FrontendController {
     //Instance
@@ -21,10 +24,14 @@ public class FrontendController {
     private int width;
     private int height;
 
-    public FrontendController(int width, int height) {
-        //Initiate Input
-        this.width = width;
-        this.height = height;
+    private Maze maze;
+
+    public FrontendController(Maze maze) {
+        //Initiate Input from maze
+        this.maze = maze;
+        this.width = maze.getWidth();
+        this.height = maze.getHeight();
+
 
 
         //Itialize the View and Layout
@@ -55,6 +62,7 @@ public class FrontendController {
         //East Frame
         east = new JPanel();
         east.setMaximumSize(new Dimension((view.getMaxWidth()/5),(view.getMaxHeight()/5)*3));
+        loadEast();
         currScreen.add(east, "East");
 
         //Center Frame
@@ -65,10 +73,14 @@ public class FrontendController {
     }
 
     //Load the Screen
-    public void updateCenter(int[][] vars) {
+    public void updateCenter() {
         //Fix layout
+        maze.generateNewMaze();
+        maze.writeToFile();
+        int[][] vars = maze.getArr();
 
         //center.removeAll();
+        center.removeAll();
         center.setMaximumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
         GridLayout centerLayout = new GridLayout();
 
@@ -99,6 +111,17 @@ public class FrontendController {
             }
         }
         loadScreen();
+    }
+
+    private void loadEast() {
+        JButton reset = new JButton("Re-generate");
+        reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateCenter();
+            }
+        });
+        east.add(reset);
     }
 
 

@@ -17,10 +17,7 @@ class Main {
     public static void main(String[] args) {
         main = new Main();
 
-        FrontendController fc = new FrontendController(5,5);
-        Maze m = new Maze(5,5,new File("./Resources/Maze.txt"));
-        m.generateNewMaze();
-        fc.updateCenter(m.getArr());
-        m.writeToFile();
+        Maze m = new Maze(15,15,new File("./Resources/Maze.txt"));
+        FrontendController fc = new FrontendController(m);
     }
 }
