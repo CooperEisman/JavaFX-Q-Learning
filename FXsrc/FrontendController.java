@@ -13,6 +13,9 @@ public class FrontendController {
     private View view;
     private JPanel currScreen;
     private LayoutManager layoutManager;
+    private JPanel south;
+    private JPanel east;
+    private JPanel center;
 
     public FrontendController(int width, int height) {
         //Itialize the View and Layout
@@ -22,9 +25,13 @@ public class FrontendController {
         //Initialize Current Screen and Set Layout
         currScreen = new JPanel();
         currScreen.setLayout(layoutManager);
+        loadLayout();
 
 
-        //loadLayout();
+
+        currScreen.validate();
+
+
         loadScreen();
     }
 
@@ -32,29 +39,21 @@ public class FrontendController {
         view.configureViewPort(currScreen);
     }
 
-    private void loadLayout() {
-        JButton b = new JButton("My Ass");
+    private void loadLayout(int[][] vars) {
         //South Frame
-        JFrame south = new JFrame();
-        south.setMinimumSize(new Dimension(view.getMaxWidth(),(view.getMaxHeight()/10)*2));
-        south.add(b);
-        currScreen.add(south,0);
+        south = new JPanel();
+        south.setMinimumSize(new Dimension(view.getMaxWidth(),(view.getMaxHeight()/5)*2));
+        currScreen.add(south, "South");
 
         //East Frame
-        JFrame east = new JFrame();
-        east.setMinimumSize(new Dimension((view.getMaxWidth()/5),(view.getMaxHeight()/10)*8));
-        east.add(b);
-        currScreen.add(east,1);
+        east = new JPanel();
+        east.setMinimumSize(new Dimension((view.getMaxWidth()/5),(view.getMaxHeight()/5)*3));
+        currScreen.add(east, "East");
 
         //Center Frame
-        JFrame center = new JFrame();
-        center.setMinimumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/10)*8));
-        center.add(b);
-        currScreen.add(center,2);
-
-        currScreen.validate();
-
-
+        center = new JPanel();
+        center.setMinimumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
+        currScreen.add(center);
     }
 
 
