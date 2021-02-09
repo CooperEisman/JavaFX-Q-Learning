@@ -91,7 +91,6 @@ public class FrontendController {
 
     //Load the Screen
     public void updateCenter() {
-        newSize();
         //Fix layout
         maze.generateNewMaze();
         maze.writeToFile();
@@ -148,47 +147,7 @@ public class FrontendController {
         });
         east.add(reset);
 
-        JLabel widthLabel = new JLabel("Width: 4");
-        east.add(widthLabel);
 
-        widthSlider = new JSlider();
-        widthSlider.setMinimum(2);
-        widthSlider.setMaximum(200);
-        widthSlider.setValue(4);
-        widthSlider.setValue(width);
-
-        widthSlider.setLabelTable(widthSlider.createStandardLabels(25,25));
-
-        widthSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                widthLabel.setText("Width: " + widthSlider.getValue());
-            }
-        });
-
-        widthSlider.setPaintLabels(true);
-        east.add(widthSlider);
-
-        JLabel heightLabel = new JLabel("Width: 4");
-        east.add(heightLabel);
-
-        heightSlider = new JSlider();
-        heightSlider.setMinimum(2);
-        heightSlider.setMaximum(200);
-        heightSlider.setValue(4);
-        heightSlider.setValue(width);
-
-        heightSlider.setLabelTable(heightSlider.createStandardLabels(25,25));
-
-        heightSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                heightLabel.setText("Width: " + heightSlider.getValue());
-            }
-        });
-
-        heightSlider.setPaintLabels(true);
-        east.add(heightSlider);
     }
 
     private void newSize() {
