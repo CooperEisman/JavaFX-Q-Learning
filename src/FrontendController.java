@@ -30,9 +30,6 @@ public class FrontendController {
     private Maze maze;
     private JButton[] mazeView;
 
-    private JSlider widthSlider;
-    private JSlider heightSlider;
-
     public FrontendController(Maze maze) {
         //Initiate Input from maze
         this.maze = maze;
@@ -133,12 +130,14 @@ public class FrontendController {
     }
 
     private void loadEast() {
-        //new Button for New Load
-        JButton reset = new JButton("Re-generate");
+        //Layout Stuff
         GridLayout eastLayout = new GridLayout();
         eastLayout.setColumns(2);
         eastLayout.setRows(3);
         east.setLayout(eastLayout);
+
+        //new Button for New Load
+        JButton reset = new JButton("Generate");
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,17 +146,17 @@ public class FrontendController {
         });
         east.add(reset);
 
+        //new Button for Calculate Best Path
+        JButton build = new JButton("Q-Calculate");
+
+        build.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                QLearning q = new QLearning(maze.getWidth(), maze.getHeight());
+            }
+        });
+        east.add(build);
+
 
     }
-
-    private void newSize() {
-        height = heightSlider.getValue();
-        width = widthSlider.getValue();
-        if(this.height != height || this.width != width) {
-            this.maze = new Maze(height, width, new File("./Resources/Maze.txt"));
-            instantiateNew(this.maze);
-        }
-    }
-
-
 }
