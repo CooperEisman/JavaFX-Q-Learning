@@ -16,5 +16,7 @@ class Main {
     //Starts Program
     public static void main(String[] args) {
         main = new Main();
+
+        FrontendController fc = new FrontendController(5,5);
     }
 }
