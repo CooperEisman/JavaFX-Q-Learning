@@ -49,31 +49,40 @@ public class FrontendController {
     private void loadLayout() {
         //South Frame
         south = new JPanel();
-        south.setMinimumSize(new Dimension(view.getMaxWidth(),(view.getMaxHeight()/5)*2));
+        south.setMaximumSize(new Dimension(view.getMaxWidth(),(view.getMaxHeight()/5)*2));
         currScreen.add(south, "South");
 
         //East Frame
         east = new JPanel();
-        east.setMinimumSize(new Dimension((view.getMaxWidth()/5),(view.getMaxHeight()/5)*3));
+        east.setMaximumSize(new Dimension((view.getMaxWidth()/5),(view.getMaxHeight()/5)*3));
         currScreen.add(east, "East");
 
         //Center Frame
         center = new JPanel();
         center.setLayout(new GridLayout(width, height));
-        center.setMinimumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
+        center.setMaximumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
         currScreen.add(center);
     }
 
     //Load the Screen
     public void updateCenter(int[][] vars) {
+        //Fix layout
         center.removeAll();
-        center.setLayout(new GridLayout(width, height));
+        center.setMaximumSize(new Dimension((view.getMaxWidth()/5)*4,(view.getMaxHeight()/5)*3));
+        GridLayout centerLayout = new GridLayout();
+        centerLayout.setColumns(width);
+        centerLayout.setRows(height);
+        centerLayout.setHgap(1);
+        centerLayout.setVgap(1);
+        center.setLayout(centerLayout);
+
         for(int x = 0; x < vars.length; x++) {
             for(int y = 0; x < vars[x].length; y++) {
                 Button b;
                 if (vars[x][y] == -1) {
                     b = new Button("Barrier");
                     b.setBackground(new Color(0));
+                    b.setForeground(new Color(99999999));
                 } else if (vars[x][y] == 1) {
                     b = new Button("Start");
                     b.setBackground(new Color(101010));

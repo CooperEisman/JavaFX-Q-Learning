@@ -18,5 +18,8 @@ class Main {
         main = new Main();
 
         FrontendController fc = new FrontendController(5,5);
+        Maze m = new Maze(5,5,new File("./Resources/Maze.txt"));
+        m.generateNewMaze();
+        fc.updateCenter(m.getArr());
     }
 }
