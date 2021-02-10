@@ -170,6 +170,8 @@ public class FrontendController {
         do {
             nextPos = poli[currPos];
 
+            System.out.println(q.isFinalState(maze.endPos));
+
             //makecolors
             mazeView[currPos].setBackground(new Color(11111111));
             mazeView[currPos].setFont(new Font("Arial", Font.PLAIN, 40));

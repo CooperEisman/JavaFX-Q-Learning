@@ -46,23 +46,23 @@ public class Maze {
         for(int x = 0; x < numBarriers; x++) {
             int position = (int)((width*height)*Math.random());
 
-            if (!(maze[position/height][position%height] == -1)) {
-                maze[position/height][position%height] = -1;
+            if (!(maze[position%height][position/height] == -1)) {
+                maze[position%height][position/height] = -1;
             }
         }
         //Set Final Position
         int position;
         do {
             position = (int)((width*height)*Math.random());
-        } while ((maze[position/height][position%height] == -1));
-        maze[position/height][position%height] = 10;
+        } while ((maze[position%height][position/height] == -1));
+        maze[position%height][position/height] = 10;
         endPos = position;
 
         //Set Start Position
         do {
             position = (int)((width*height)*Math.random());
-        } while ((maze[position/height][position%height] == -1) || (maze[position/height][position%height] == 10));
-        maze[position/height][position%height] = 1;
+        } while ((maze[position%height][position/height] == -1) || (maze[position%height][position/height] == 10));
+        maze[position%height][position/height] = 1;
         startPos = position;
     }
 
@@ -70,7 +70,7 @@ public class Maze {
         String s = "";
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                int curr = maze[x][y];
+                int curr = maze[y][x];
                 if(curr == 0) {
                     s += "O";
                 } else if (curr == -1) {

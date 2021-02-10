@@ -17,7 +17,7 @@ class Main {
     public static void main(String[] args) {
         main = new Main();
 
-        Maze m = new Maze(200,200, new File("./Resources/Maze.txt"));
+        Maze m = new Maze(3,3, new File("./Resources/Maze.txt"));
         FrontendController fc = new FrontendController(m);
     }
 }
