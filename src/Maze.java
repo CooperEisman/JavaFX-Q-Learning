@@ -11,6 +11,9 @@ public class Maze {
     private File file;
     int[][] maze;
 
+    int startPos;
+    int endPos;
+
     //Instantiate with Default Height
     public Maze(File file) {
         this.file = file;
@@ -23,6 +26,10 @@ public class Maze {
         this.height = height;
         this.file = file;
         maze = new int[width][height];
+
+        //So that we don't die
+        this.endPos = 0;
+        this.startPos = 0;
     }
 
     //Writes/Wewrites the file; Returns false if operation fails
@@ -39,29 +46,31 @@ public class Maze {
         for(int x = 0; x < numBarriers; x++) {
             int position = (int)((width*height)*Math.random());
 
-            if (!(maze[position/height][position%height] == -1)) {
-                maze[position/height][position%height] = -1;
+            if (!(maze[position%height][position/height] == -1)) {
+                maze[position%height][position/height] = -1;
             }
         }
         //Set Final Position
         int position;
         do {
             position = (int)((width*height)*Math.random());
-        } while ((maze[position/height][position%height] == -1));
-        maze[position/height][position%height] = 10;
+        } while ((maze[position%height][position/height] == -1));
+        maze[position%height][position/height] = 10;
+        endPos = position;
 
         //Set Start Position
         do {
             position = (int)((width*height)*Math.random());
-        } while ((maze[position/height][position%height] == -1) || (maze[position/height][position%height] == 10));
-        maze[position/height][position%height] = 1;
+        } while ((maze[position%height][position/height] == -1) || (maze[position%height][position/height] == 10));
+        maze[position%height][position/height] = 1;
+        startPos = position;
     }
 
     public String toString() {
         String s = "";
         for(int x = 0; x < width; x++) {
             for(int y = 0; y < height; y++) {
-                int curr = maze[x][y];
+                int curr = maze[y][x];
                 if(curr == 0) {
                     s += "O";
                 } else if (curr == -1) {

@@ -30,9 +30,6 @@ public class FrontendController {
     private Maze maze;
     private JButton[] mazeView;
 
-    private JSlider widthSlider;
-    private JSlider heightSlider;
-
     public FrontendController(Maze maze) {
         //Initiate Input from maze
         this.maze = maze;
@@ -91,7 +88,6 @@ public class FrontendController {
 
     //Load the Screen
     public void updateCenter() {
-        newSize();
         //Fix layout
         maze.generateNewMaze();
         maze.writeToFile();
@@ -134,12 +130,14 @@ public class FrontendController {
     }
 
     private void loadEast() {
-        //new Button for New Load
-        JButton reset = new JButton("Re-generate");
+        //Layout Stuff
         GridLayout eastLayout = new GridLayout();
         eastLayout.setColumns(2);
         eastLayout.setRows(3);
         east.setLayout(eastLayout);
+
+        //new Button for New Load
+        JButton reset = new JButton("Generate");
         reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,57 +146,50 @@ public class FrontendController {
         });
         east.add(reset);
 
-        JLabel widthLabel = new JLabel("Width: 4");
-        east.add(widthLabel);
+        //new Button for Calculate Best Path
+        JButton build = new JButton("Q-Calculate");
 
-        widthSlider = new JSlider();
-        widthSlider.setMinimum(2);
-        widthSlider.setMaximum(200);
-        widthSlider.setValue(4);
-        widthSlider.setValue(width);
-
-        widthSlider.setLabelTable(widthSlider.createStandardLabels(25,25));
-
-        widthSlider.addChangeListener(new ChangeListener() {
+        build.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent e) {
-                widthLabel.setText("Width: " + widthSlider.getValue());
+            public void actionPerformed(ActionEvent e) {
+                addQLearn();
             }
         });
+        east.add(build);
+    }
+    private void addQLearn() {
+        QLearning q = new QLearning(maze.getWidth(), maze.getHeight());
+        int currPos = maze.startPos;
+        int nextPos;
+        //how to find xand y from pos [position/height][position%height]
 
-        widthSlider.setPaintLabels(true);
-        east.add(widthSlider);
+        int[] poli = q.policies();
+        //switch them up()
 
-        JLabel heightLabel = new JLabel("Width: 4");
-        east.add(heightLabel);
+        int x = 0;
+        do {
+            nextPos = poli[currPos];
 
-        heightSlider = new JSlider();
-        heightSlider.setMinimum(2);
-        heightSlider.setMaximum(200);
-        heightSlider.setValue(4);
-        heightSlider.setValue(width);
+            System.out.println(q.isFinalState(maze.endPos));
 
-        heightSlider.setLabelTable(heightSlider.createStandardLabels(25,25));
-
-        heightSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                heightLabel.setText("Width: " + heightSlider.getValue());
+            //makecolors
+            mazeView[currPos].setBackground(new Color(11111111));
+            mazeView[currPos].setFont(new Font("Arial", Font.PLAIN, 40));
+            if (nextPos == currPos + 1) { // go Right
+                mazeView[currPos].setText("→");
+            } else if (nextPos == currPos - 1) { // go Left
+                mazeView[currPos].setText("←");
+            } else if (nextPos == currPos - width) { // go up
+                mazeView[currPos].setText("↑");
+            } else { // else, down
+                mazeView[currPos].setText("↓");
             }
-        });
 
-        heightSlider.setPaintLabels(true);
-        east.add(heightSlider);
+            currPos = nextPos;
+            System.out.println(currPos + "/" + maze.endPos);
+            x++;
+        } while (maze.endPos != currPos && x != 10);
+
+        loadScreen();
     }
-
-    private void newSize() {
-        height = heightSlider.getValue();
-        width = widthSlider.getValue();
-        if(this.height != height || this.width != width) {
-            this.maze = new Maze(height, width, new File("./Resources/Maze.txt"));
-            instantiateNew(this.maze);
-        }
-    }
-
-
 }
