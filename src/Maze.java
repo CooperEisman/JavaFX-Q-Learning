@@ -87,7 +87,7 @@ public class Maze {
     }
 
     public void writeToFile() {
-        clearTheFile();
+        clearTheFile(this.file);
         FileWriter toFile;
         try {
             toFile = new FileWriter(file);
@@ -97,11 +97,35 @@ public class Maze {
             System.out.println("Error: File not Read: " + e.toString());
         }
 
+        File qlearn = new File("./Resources/QMaze.txt");
+        String theIn = toString();
+        clearTheFile(qlearn);
+        String theOut = "";
+        try {
+            toFile = new FileWriter(qlearn);
+
+
+
+            for (int x = 0; x < theIn.length(); x++) {
+                if (theIn.charAt(x) == '*') {
+                    theOut += "0";
+                } else {
+                    theOut += theIn.charAt(x);
+                }
+
+            }
+            System.out.println(theOut);
+            toFile.write(theOut);
+            toFile.close();
+        } catch(IOException e) {
+            System.out.println("Error: File not Read: " + e.toString());
+        }
+
     }
 
 
     //Clears the File. Returns false if operation fails
-    public boolean clearTheFile() {
+    public boolean clearTheFile(File file) {
         FileWriter fwOb;
         try {
             fwOb = new FileWriter(file, false);

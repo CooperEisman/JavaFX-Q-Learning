@@ -33,7 +33,7 @@ public class QLearning {
     }
 
     public void init() {
-        File file = new File("Resources/Maze.txt");
+        File file = new File("Resources/QMaze.txt");
 
         R = new int[statesCount][statesCount];
         Q = new double[statesCount][statesCount];

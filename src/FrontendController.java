@@ -188,7 +188,7 @@ public class FrontendController {
             currPos = nextPos;
             System.out.println(currPos + "/" + maze.endPos);
             x++;
-        } while (maze.endPos != currPos && x != 10);
+        } while (maze.endPos != currPos && x != 20);
 
         loadScreen();
     }
