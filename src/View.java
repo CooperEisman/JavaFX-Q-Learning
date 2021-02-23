@@ -25,7 +25,7 @@ public class View {
 
 
         //Sets up the ViewPort
-        viewPort = new JFrame("HOI4 Mod Maker - By Cooper Eisman");
+        viewPort = new JFrame("QLearning Design - By Cooper Eisman");
 
         //Sets Size and Behaviour
         viewPort.setExtendedState(JFrame.MAXIMIZED_BOTH);
