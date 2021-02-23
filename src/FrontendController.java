@@ -111,6 +111,7 @@ public class FrontendController {
                     mazeView[y*width+x] = new JButton();
                     mazeView[y*width+x].setBackground(new Color(0));
                     mazeView[y*width+x].setForeground(new Color(99999999));
+                    mazeView[y*width+x] = new JButton("Barrier");
                 } else if (vars[x][y] == 1) {
                     mazeView[y*width+x] = new JButton("Start");
                     mazeView[y*width+x].setBackground(new Color(101010));
